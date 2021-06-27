@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . import models
+from . import models  # 현재 위치 기준 models.py를 호출
 
 
 # Register your models here.
