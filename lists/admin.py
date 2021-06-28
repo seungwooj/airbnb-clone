@@ -7,4 +7,5 @@ from . import models
 class ListAdmin(admin.ModelAdmin):
 
     """ List Admin Definition """
+
     pass
