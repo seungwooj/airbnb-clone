@@ -61,7 +61,7 @@ class RoomAdmin(admin.ModelAdmin):
         "city",
         "country",
     )
-    search_fields = ("city", "^host__username")  # host's username
+    search_fields = ("city", "^host__username")  # starts with host's username
 
     filter_horizontal = (
         "amenities",
@@ -71,7 +71,6 @@ class RoomAdmin(admin.ModelAdmin):
 
     # admin function : function inside admin (2 inputs : self - RoomAdmin, obj - current row)
     def count_amenities(self, obj):
-        print(obj.amenities.all())
         return obj.amenities.count()
 
     def count_photos(self, obj):
