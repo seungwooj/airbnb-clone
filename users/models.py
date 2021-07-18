@@ -32,11 +32,11 @@ class User(AbstractUser):
     CURRENCY_CHOICES = (
         (CURRENCY_USD, "USD"),
         (CURRENCY_JPY, "JPY"),
-        (CURRENCY_KRW, "KRW")
-        )
+        (CURRENCY_KRW, "KRW"),
+    )
 
     """ Custom User Model"""
-    avatar = models.ImageField(blank=True)
+    avatar = models.ImageField(upload_to="avatars", blank=True)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
     bio = models.TextField(blank=True)
     birthdate = models.DateField(blank=True, null=True)

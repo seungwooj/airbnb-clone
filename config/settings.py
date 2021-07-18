@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,7 +31,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-DJANGO_APPS = [ 
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -39,18 +40,16 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = [
-    "django_countries"
-    ]
+THIRD_PARTY_APPS = ["django_countries"]
 
 PROJECT_APPS = [
-    "core.apps.CoreConfig", 
-    "users.apps.UsersConfig", 
-    "rooms.apps.RoomsConfig", 
+    "core.apps.CoreConfig",
+    "users.apps.UsersConfig",
+    "rooms.apps.RoomsConfig",
     "reviews.apps.ReviewsConfig",
     "reservations.apps.ReservationsConfig",
     "lists.apps.ListsConfig",
-    "conversations.apps.ConversationsConfig"
+    "conversations.apps.ConversationsConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
@@ -129,4 +128,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
+MEDIA_URL = "/media/"  # absolute path
