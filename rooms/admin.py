@@ -15,15 +15,22 @@ class ItemAdmin(admin.ModelAdmin):
         return obj.rooms.count()
 
 
+# inline model admin
+class PhotoInline(admin.TabularInline):
+    model = models.Photo
+
+
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
 
     """ Room Admin Definition """
 
+    inlines = (PhotoInline,)
+
     fieldsets = (
         (
             "Basic Info",
-            {"fields": ("name", "description", "country", "address", "price",)},
+            {"fields": ("name", "description", "country", "city", "address", "price",)},
         ),
         ("Spaces", {"fields": ("guests", "beds", "bedrooms", "baths",)},),
         ("Times", {"fields": ("check_in", "check_out", "instant_book",)},),
@@ -66,6 +73,9 @@ class RoomAdmin(admin.ModelAdmin):
         "city",
         "country",
     )
+
+    raw_id_fields = ("host",)  # enables search hosts using user admin
+
     search_fields = ("city", "^host__username")  # starts with host's username
 
     filter_horizontal = (
@@ -74,7 +84,7 @@ class RoomAdmin(admin.ModelAdmin):
         "house_rules",
     )
 
-    # admin function : function inside admin (2 inputs : self - RoomAdmin, obj - current row)
+    # admin function:function inside admin (2 inputs: self(RoomAdmin), obj(current row))
     def count_amenities(self, obj):
         return obj.amenities.count()
 
