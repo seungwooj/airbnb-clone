@@ -13,6 +13,7 @@ class HomeView(ListView):
     paginate_orphans = 5
     ordering = "created"
     context_object_name = "rooms"
+    # get_context_Data : cbv에서 fbv처럼 기능을 추가하는 방법
 
 
 class RoomDetail(DetailView):
@@ -31,7 +32,7 @@ class SearchView(View):
         country = request.GET.get("country")
 
         if country:
-
+            # form bounded
             form = forms.SearchForm(request.GET)
 
             if form.is_valid():
@@ -86,9 +87,11 @@ class SearchView(View):
                 for facility in facilities:
                     filter_args["facilities"] = facility
 
-                qs = models.Room.objects.filter(**filter_args).order_by("-created")
+                query_set = models.Room.objects.filter(**filter_args).order_by(
+                    "-created"
+                )
 
-                paginator = Paginator(qs, 10, orphans=5)
+                paginator = Paginator(query_set, 10, orphans=5)
 
                 page = request.GET.get("page", 1)
 
@@ -99,7 +102,7 @@ class SearchView(View):
                 )
 
         else:
-
+            # form unbounded
             form = forms.SearchForm()
 
         return render(request, "rooms/search.html", {"form": form})
